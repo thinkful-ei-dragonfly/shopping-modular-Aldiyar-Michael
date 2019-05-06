@@ -1,4 +1,4 @@
-/* eslint-disable strict */
+
 const store = (function () {
   const foo = 'bar';
   const items = [
@@ -9,10 +9,48 @@ const store = (function () {
   ];
   let hideCheckedItems = false;
   let searchTerm = '';
+  let findById = function (id) {
+    let item = store.items.find(item => item.id === id);
+    return item;
+  };
+  let addItem = function (name) {
+    try {
+      Item.validateName(name);
+      let newItem = Item.create(name);
+      store.items.push(newItem);
+    } catch(error) {
+      console.log(`Cannot add item: ${error.message}`);
+    }
+  };
+
+  let findAndToggleChecked = function (id) {
+    let toCheck = this.findById(item => item.id === id);
+    toCheck.checked = !toCheck.checked;
+  }
+
+  let findAndUpdateName = function (id, newName) {
+    try { 
+      Item.validateName(name);
+      let found = findByid(id);
+      found.name = newName;
+    } catch {
+      console.log(`Cannot update name: ${error.message}`);
+    }
+  };
+
+  let findAndDelete = function(id) {
+    let index = this.items.findIndex(item => item.id === id);
+    this.items.splice(index, 1);
+  }
   
   return {
     items,
     hideCheckedItems,
-    searchTerm
+    searchTerm,
+    findById,
+    addItem,
+    findAndToggleChecked,
+    findAndUpdateName,
+    findAndDelete,
   };
 }());

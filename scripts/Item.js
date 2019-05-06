@@ -3,13 +3,13 @@
 
 const Item = (function() {
   //const foo = 'bar';
-  const validateName = function (name) {
+  function validateName(name) {
     if (name === '') {
       throw new Error('Name does not exist.');
     }
   };
   
-  const create = function (name) {
+  function create(name) {
     return {
       id: cuid(),
       name: name,
